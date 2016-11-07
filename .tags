@@ -1,0 +1,3 @@
+import	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/api/news.js	/^import fetch from 'isomorphic-fetch'$/;"	function	line:0
+getcNode	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/api/news.js	/^  getcNode () {$/;"	function	line:24
+getGroup	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/api/news.js	/^  getGroup () {$/;"	function	line:27
