@@ -1,30 +1,14 @@
-import fetch from 'isomorphic-fetch'
-require('es6-promise').polyfill()
-// import Promise from 'es6-promise'
+import Vue from 'vue'
+import VueResource from 'vue-resource'
 
-// const url = 'https://cnodejs.org/api/v1/topics'
+Vue.use(VueResource)
 
 const _get = function (url) {
-  return fetch(url)
-  .then((response) => {
-    if (response.status >= 400) {
-      throw new Error('Bad response from server')
-    } else {
-      return response.json()
-    }
+  return Vue.http.get(url).then((res) => {
+    return res.body
+  }, (res) => {
+    console.log(res.error)
   })
-  // .then((stories) => {
-  //   let str = this
-  //   // // return str.stories
-  //   console.log(stories)
-  // })
 }
 
-export default {
-  getcNode () {
-    return _get('https://cnodejs.org/api/v1/topics')
-  },
-  getGroup () {
-    return _get('http://192.168.1.92:8986/app/circle/indexList')
-  }
-}
+export { _get }

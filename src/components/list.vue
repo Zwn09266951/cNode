@@ -1,6 +1,6 @@
 <template>
-  <div class="list">
-    <ul>
+  <div class="share">
+    <ol>
       <li v-for="item in list.data">
         <div class="newsbox">
           <span class="userImg" title="用户头像"><img :src="item.author.avatar_url" alt="" width="30" height="30"/></span>
@@ -9,65 +9,70 @@
           <span v-if="item.good" class="essence">精华</span>
           <span class="title" title="文章标题">{{item.title}}</span>
           <span class="latest_reply_time rt" title="最新回复时间" style="line-height: 30px;">
-             <!-- {{item.last_reply_at}} -->
-             <i v-if="item.day > 0">{{item.day}}天</i><i>{{item.hour}}</i><i>前</i>    
+             <i v-if="item.day > 0">{{item.day}}天</i>
+             <i v-if="item.hour > 0">{{item.hour}}小时</i>
+             <i v-if="item.min > 0">{{item.min}}分</i>
+             <i v-if="item.afterMin > 0">{{item.afterMin}}秒</i>
+             <i>前</i>
           </span>
         </div>
       </li>
-    </ul>
+    </ol>
   </div>
 </template>
 
 <script>
-import news from '../api/news'
+import { _get } from '../api/news'
 
+// let page = null
+let url = 'https://cnodejs.org/api/v1/'
 export default {
-  // name: 'list',
   data () {
     return {
-      list: []
+      list: [],
+      limit: 10
+    }
+  },
+  props: {
+    page: {
+      type: Number,
+      default: 1
     }
   },
   watch: {
+    page (val) {
+      this.getinf()
+    }
   },
   created () {
-    this.getHot().then((json) => {
-      this.list = json
-      let nowdata = new Date()
-      this.list.data.forEach((item, index) => {
-        var str = item.last_reply_at
-        var strTime = (str.substring(0, 10) + ' ' + str.substring(11, 19)).replace(/-/g, '/')
-        // console.log(strTime[0])
-        // strTime = strTime.replace(/-/g, '/')
-        var oldtime = new Date(strTime)
-        var overtime = (nowdata.getTime() - oldtime.getTime()) / 1000
-        // console.log(overtime)
-        var day = parseInt(overtime / (24 * 60 * 60))
-        // 计算整数天数
-        var afterDay = overtime - day * 24 * 60 * 60
-        // 取得算出天数后剩余的秒数
-        var hour = parseInt(afterDay / (60 * 60))
-        // 计算整数小时数
-        // var afterHour = overtime - day * 24 * 60 * 60 - hour * 60 * 60
-        // 取得算出小时数后剩余的秒数
-        // var min = parseInt(afterHour / 60)
-        // 计算整数分
-        // var afterMin = overtime - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60
-        // 取得算出分后剩余的秒数
-        // console.log([day, hour].join(':'))
-        item.last_reply_at = day + '天' + hour + '小时前'
-        item.day = day
-        item.hour = hour + '小时'
-      })
-    })
+    this.getinf()
   },
   methods: {
-    getHot () {
-      return news.getcNode()
+    getinf () {
+      return _get(url + 'topics?mdrender=true' + '&&page=' + this.page + '&&limit=' + this.limit).then((json) => {
+        this.list = json
+        let nowdata = new Date()
+        this.list.data.forEach((item, index) => {
+          let str = item.last_reply_at
+          let strTime = (str.substring(0, 10) + ' ' + str.substring(11, 19)).replace(/-/g, '/')
+          let oldtime = new Date(strTime)
+          let overtime = (nowdata.getTime() - oldtime.getTime()) / 1000
+          let day = parseInt(overtime / (24 * 60 * 60))
+          let afterDay = overtime - day * 24 * 60 * 60
+          let hour = parseInt(afterDay / (60 * 60))
+          let afterHour = overtime - day * 24 * 60 * 60 - hour * 60 * 60
+          let min = parseInt(afterHour / 60)
+          let afterMin = parseInt(overtime - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60)
+          item.last_reply_at = day + '天' + hour + '小时前'
+          item.day = day
+          item.hour = hour
+          item.min = min
+          item.afterMin = afterMin
+        })
+      })
     }
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

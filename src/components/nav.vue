@@ -36,11 +36,11 @@
 
 <style>
 .mune {
-  width: 100%;
   background-color: #222;
   overflow: hidden;
   height: 40px;
   line-height: 40px;
+  padding: 10px;
 
 }
 .lf {
@@ -58,7 +58,7 @@
   height:22px;
   background:url(../assets/img/searchImg.png) no-repeat #888;
   background-position:3% 50% ;
-  margin:0px;
+  margin-left: 20px;
   padding:0px;
   vertical-align:middle;
   border-radius: 25px;
