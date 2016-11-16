@@ -1,5 +1,5 @@
 <template>
-  <div class="share">
+  <div class="list">
     <ol>
       <li v-for="item in list.data">
         <div class="newsbox">
@@ -18,19 +18,24 @@
         </div>
       </li>
     </ol>
+    <a class="button" @click="home" >首页</a>
+    <a class="button" @click="previous" >上一页</a><span>{{page}}</span><a class="button" @click="next" >下一页</a>
+    <input type="text"@keyup.enter="jump" name="name" v-model="page1" style="width:50px;text-align:center;">
+    <a class="button" @click="jump">跳转</a>
   </div>
+
 </template>
 
 <script>
 import { _get } from '../api/news'
 
-// let page = null
 let url = 'https://cnodejs.org/api/v1/'
 export default {
   data () {
     return {
       list: [],
-      limit: 10
+      limit: 10,
+      tab: 'all'
     }
   },
   props: {
@@ -40,6 +45,9 @@ export default {
     }
   },
   watch: {
+    $route (val) {
+      this.getinf()
+    },
     page (val) {
       this.getinf()
     }
@@ -48,8 +56,37 @@ export default {
     this.getinf()
   },
   methods: {
+    jump () {
+      // var enterNumber = Number(document.getElementById('jumpNumber').value)
+      // console.log(111)
+      // if (enterNumber !== 0) {
+      //   this.page = enterNumber
+      //   document.getElementById('jumpNumber').value = ''
+      //   console.log(enterNumber)
+      // }
+      this.page = this.page1
+      this.page1 = ''
+    },
+    home () {
+      this.page = 1
+    },
+    next () {
+      this.page ++
+    },
+    previous () {
+      if (this.page !== 1) {
+        this.page --
+      } else {
+        window.alert('已经是第一页了！')
+      }
+    },
     getinf () {
-      return _get(url + 'topics?mdrender=true' + '&&page=' + this.page + '&&limit=' + this.limit).then((json) => {
+      // console.log(this.$route.query.tab)
+      if (this.$route.query.tab) {
+        this.tab = this.$route.query.tab
+      }
+
+      return _get(url + 'topics?mdrender=true' + '&&tab=' + this.tab + '&&page=' + this.page + '&&limit=' + this.limit).then((json) => {
         this.list = json
         let nowdata = new Date()
         this.list.data.forEach((item, index) => {
@@ -97,6 +134,16 @@ export default {
 
 .newsbox {
   padding: 5px 10px;
+}
+.newsbox span {
+  display: inline-flex;
+}
+
+.title {
+  width: 300px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 h1, h2 {

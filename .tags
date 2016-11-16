@@ -1,3 +1,4 @@
+import.use	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/api/news.js	/^import Vue from 'vue'$/;"	function	line:0
 html	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/assets/css/reset.css	/^html {$/;"	function	line:13
 body	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/assets/css/reset.css	/^body {$/;"	function	line:28
 article	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/assets/css/reset.css	/^article,$/;"	function	line:36
@@ -76,8 +77,4 @@ ol	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/assets/css/reset.css	/^ol {$/;"	funct
 li	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/assets/css/reset.css	/^li {$/;"	function	line:467
 ul	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/assets/css/reset.css	/^ul {$/;"	function	line:472
 [hidden]	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/assets/css/reset.css	/^[hidden] {$/;"	function	line:476
-import.use.template	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/main.js	/^const ask = {$/;"	property	line:8
-data	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/main.js	/^  data () {$/;"	function	line:28
-created	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/main.js	/^  created () {$/;"	function	line:35
-getHot	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/main.js	/^    getHot () {$/;"	function	line:68
-import.use	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/api/news.js	/^import Vue from 'vue'$/;"	function	line:0
+.button	/Users/zwnIscp/Desktop/cNodeAPIDemo/src/assets/css/reset.css	/^.button {$/;"	function	line:480

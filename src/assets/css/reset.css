@@ -476,12 +476,7 @@ ul {
 [hidden] {
   display: none;
 }
-.title {
-  width: 500px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
+
 .button {
   cursor:pointer;
 }
