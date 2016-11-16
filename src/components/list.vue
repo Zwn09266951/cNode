@@ -7,7 +7,9 @@
           <span class="reply" title="回复">{{item.reply_count}}</span>/<span class="clicks" title="点击数">{{item.visit_count}}</span>
           <span v-if="item.top" class="top">置顶</span>
           <span v-if="item.good" class="essence">精华</span>
-          <span class="title" title="文章标题">{{item.title}}</span>
+          <span ><p class="title" title="文章标题">
+            <a @click="showcontent(item.id)">{{item.title}}</a>
+          </p></span>
           <span class="latest_reply_time rt" title="最新回复时间" style="line-height: 30px;">
              <i v-if="item.day > 0">{{item.day}}天</i>
              <i v-if="item.hour > 0">{{item.hour}}小时</i>
@@ -20,7 +22,7 @@
     </ol>
     <a class="button" @click="home" >首页</a>
     <a class="button" @click="previous" >上一页</a><span>{{page}}</span><a class="button" @click="next" >下一页</a>
-    <input type="text"@keyup.enter="jump" name="name" v-model="page1" style="width:50px;text-align:center;">
+    <input type="text"@keyup.enter="jump" name="name" v-model="NextPage" style="width:50px;text-align:center;">
     <a class="button" @click="jump">跳转</a>
   </div>
 
@@ -35,12 +37,13 @@ export default {
     return {
       list: [],
       limit: 10,
-      tab: 'all'
+      tab: 'all',
+      id: [],
+      NextPage: ''
     }
   },
   props: {
     page: {
-      type: Number,
       default: 1
     }
   },
@@ -56,6 +59,9 @@ export default {
     this.getinf()
   },
   methods: {
+    showcontent (id) {
+      this.$router.push({path: 'content/' + id})
+    },
     jump () {
       // var enterNumber = Number(document.getElementById('jumpNumber').value)
       // console.log(111)
@@ -64,8 +70,8 @@ export default {
       //   document.getElementById('jumpNumber').value = ''
       //   console.log(enterNumber)
       // }
-      this.page = this.page1
-      this.page1 = ''
+      this.page = this.NextPage
+      this.NextPage = ''
     },
     home () {
       this.page = 1
@@ -81,11 +87,9 @@ export default {
       }
     },
     getinf () {
-      // console.log(this.$route.query.tab)
       if (this.$route.query.tab) {
         this.tab = this.$route.query.tab
       }
-
       return _get(url + 'topics?mdrender=true' + '&&tab=' + this.tab + '&&page=' + this.page + '&&limit=' + this.limit).then((json) => {
         this.list = json
         let nowdata = new Date()

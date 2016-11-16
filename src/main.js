@@ -5,11 +5,19 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import list from './components/list'
-
-// const foo = { template:}
+import login from './components/login'
+import register from './components/register'
+import content from './components/content'
 
 const routes = [
-  { path: '/', component: list, name: 'home' }
+  {
+    name: 'home',
+    path: '/',
+    component: list
+  },
+  {name: 'login', path: '/login', component: login},
+  {name: 'register', path: '/register', component: register},
+  {name: 'content', path: '/content/:id', component: content}
 ]
 
 const router = new VueRouter({

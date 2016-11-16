@@ -1,8 +1,11 @@
 <template>
   <div class="rt " id="navmune">
-    
+    <ul>
+      <router-link :to="{path:'/Register'}">注册</router-link>
+      <router-link :to="{path:'/LogIn'}">登陆</router-link>
+    </ul>
   </div>
-</div>
+
 </template>
 
 <script>

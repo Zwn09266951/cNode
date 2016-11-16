@@ -28,6 +28,12 @@ export default {
 </script>
 
 <style lang="css">
+.aa {
+  width: 100px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .classifyTab {
   margin: 10px;
 }
