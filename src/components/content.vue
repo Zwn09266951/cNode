@@ -19,12 +19,6 @@ export default {
       content: ''
     }
   },
-  props: {
-    id: {
-      type: String,
-      default: '581026cceae2a24f34e67f0a'
-    }
-  },
   watch: {
     // $route (val) {
     //   this.getcontent()
